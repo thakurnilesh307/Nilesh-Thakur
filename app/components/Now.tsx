@@ -1,13 +1,13 @@
 export default function Now({ items }: { items: any[] }) {
   return (
-    <section style={{ padding: '2rem', borderTop: '0.5px solid #e5e5e5' }}>
-      <p style={{ fontSize: '11px', letterSpacing: '0.06em', color: '#999', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
+    <section id="now" style={{ padding: '2rem', borderTop: '0.5px solid var(--border)' }}>
+      <p style={{ fontSize: '11px', letterSpacing: '0.06em', color: 'var(--fg-faint)', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
         Currently
       </p>
       <h2 style={{ fontSize: '22px', fontWeight: 500, marginBottom: '0.25rem' }}>
         What I'm working on
       </h2>
-      <p style={{ fontSize: '13px', color: '#888', marginBottom: '1.5rem' }}>
+      <p style={{ fontSize: '13px', color: 'var(--fg-muted)', marginBottom: '1.5rem' }}>
         Ongoing things — career and not. Updated as I go.
       </p>
 
@@ -25,11 +25,11 @@ export default function Now({ items }: { items: any[] }) {
             cooking: { bg: '#FAEEDA', color: '#854F0B' },
             personal: { bg: '#EEEDFE', color: '#534AB7' },
           }
-          const cat = catColors[category] ?? { bg: '#f5f5f5', color: '#666' }
+          const cat = catColors[category] ?? { bg: 'var(--border)', color: 'var(--fg-muted)' }
 
           return (
             <a key={item.id} href={`/now/${item.id}`} style={{
-              border: '0.5px solid #e5e5e5',
+              border: '0.5px solid var(--border)',
               borderRadius: '12px',
               padding: '1rem 1.25rem',
               cursor: 'pointer',
@@ -49,18 +49,18 @@ export default function Now({ items }: { items: any[] }) {
                       fontWeight: 500,
                     }}>{category}</span>
                     {started && (
-                      <span style={{ fontSize: '11px', color: '#aaa' }}>
+                      <span style={{ fontSize: '11px', color: 'var(--fg-faint)' }}>
                         started {new Date(started).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                       </span>
                     )}
                   </div>
                   <p style={{ fontSize: '15px', fontWeight: 500, marginBottom: '3px' }}>{name}</p>
-                  <p style={{ fontSize: '13px', color: '#666', marginBottom: '10px' }}>{tagline}</p>
+                  <p style={{ fontSize: '13px', color: 'var(--fg-muted)', marginBottom: '10px' }}>{tagline}</p>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                    <span style={{ fontSize: '12px', color: '#888' }}>Progress</span>
+                    <span style={{ fontSize: '12px', color: 'var(--fg-muted)' }}>Progress</span>
                     <span style={{ fontSize: '12px', fontWeight: 500 }}>{Math.round(progress * 100)}%</span>
                   </div>
-                  <div style={{ height: '3px', background: '#f0f0f0', borderRadius: '100px', overflow: 'hidden' }}>
+                  <div style={{ height: '3px', background: 'var(--border)', borderRadius: '100px', overflow: 'hidden' }}>
                     <div style={{
                       height: '3px',
                       width: `${progress * 100}%`,
@@ -69,7 +69,7 @@ export default function Now({ items }: { items: any[] }) {
                     }} />
                   </div>
                 </div>
-                <span style={{ fontSize: '14px', color: '#aaa', marginLeft: '1rem' }}>→</span>
+                <span style={{ fontSize: '14px', color: 'var(--fg-faint)', marginLeft: '1rem' }}>→</span>
               </div>
             </a>
           )

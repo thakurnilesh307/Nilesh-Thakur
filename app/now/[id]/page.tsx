@@ -20,18 +20,18 @@ export default async function NowDetail({ params }: { params: any }) {
     cooking: { bg: '#FAEEDA', color: '#854F0B' },
     personal: { bg: '#EEEDFE', color: '#534AB7' },
   }
-  const cat = catColors[category] ?? { bg: '#f5f5f5', color: '#666' }
+  const cat = catColors[category] ?? { bg: 'var(--border)', color: 'var(--fg-muted)' }
 
   const typeColors: any = {
     win: { color: '#0F6E56', label: 'win' },
     struggle: { color: '#A32D2D', label: 'struggling with' },
-    note: { color: '#5F5E5A', label: 'note' },
+    note: { color: 'var(--fg-muted)', label: 'note' },
   }
 
   const dotColors: any = {
     win: '#1D9E75',
     struggle: '#E24B4A',
-    note: '#888780',
+    note: 'var(--fg-faint)',
   }
 
   return (
@@ -44,8 +44,7 @@ export default async function NowDetail({ params }: { params: any }) {
           gap: '6px',
           padding: '1.25rem 0',
           fontSize: '13px',
-          color: '#888',
-          textDecoration: 'none',
+          color: 'var(--fg-muted)',
         }}>
           ← back
         </a>
@@ -62,7 +61,7 @@ export default async function NowDetail({ params }: { params: any }) {
             }}>{category}</span>
           </div>
           <h1 style={{ fontSize: '22px', fontWeight: 500, marginBottom: '6px', lineHeight: 1.3 }}>{name}</h1>
-          <p style={{ fontSize: '14px', color: '#666', lineHeight: 1.6, marginBottom: '1.25rem' }}>{tagline}</p>
+          <p style={{ fontSize: '14px', color: 'var(--fg-muted)', lineHeight: 1.6, marginBottom: '1.25rem' }}>{tagline}</p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginBottom: '1rem' }}>
             {[
@@ -70,14 +69,14 @@ export default async function NowDetail({ params }: { params: any }) {
               { label: 'wins', value: logs.filter((l: any) => l.properties.Type?.select?.name === 'win').length },
               { label: 'struggles', value: logs.filter((l: any) => l.properties.Type?.select?.name === 'struggle').length },
             ].map(stat => (
-              <div key={stat.label} style={{ background: '#f5f5f5', borderRadius: '8px', padding: '0.75rem 1rem' }}>
-                <p style={{ fontSize: '11px', color: '#999', marginBottom: '3px' }}>{stat.label}</p>
+              <div key={stat.label} style={{ background: 'var(--border)', borderRadius: '8px', padding: '0.75rem 1rem' }}>
+                <p style={{ fontSize: '11px', color: 'var(--fg-faint)', marginBottom: '3px' }}>{stat.label}</p>
                 <p style={{ fontSize: '18px', fontWeight: 500 }}>{stat.value}</p>
               </div>
             ))}
           </div>
 
-          <div style={{ height: '3px', background: '#f0f0f0', borderRadius: '100px', overflow: 'hidden', marginBottom: '1.5rem' }}>
+          <div style={{ height: '3px', background: 'var(--border)', borderRadius: '100px', overflow: 'hidden', marginBottom: '1.5rem' }}>
             <div style={{
               height: '3px',
               width: `${progress * 100}%`,
@@ -102,24 +101,24 @@ export default async function NowDetail({ params }: { params: any }) {
               <div key={log.id} style={{ display: 'flex', gap: '10px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '4px' }}>
                   <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: dc, flexShrink: 0 }} />
-                  <div style={{ flex: 1, width: '0.5px', background: '#e5e5e5', marginTop: '4px' }} />
+                  <div style={{ flex: 1, width: '0.5px', background: 'var(--border)', marginTop: '4px' }} />
                 </div>
                 <div style={{ flex: 1, paddingBottom: '4px' }}>
                   <div style={{ display: 'flex', gap: '6px', alignItems: 'center', marginBottom: '2px' }}>
                     <span style={{ fontSize: '11px', fontWeight: 500, color: tc.color }}>{tc.label}</span>
                     {date && (
-                      <span style={{ fontSize: '11px', color: '#aaa' }}>
+                      <span style={{ fontSize: '11px', color: 'var(--fg-faint)' }}>
                         {new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                       </span>
                     )}
                   </div>
-                  <p style={{ fontSize: '13px', color: '#666', lineHeight: 1.6 }}>{entry}</p>
+                  <p style={{ fontSize: '13px', color: 'var(--fg-muted)', lineHeight: 1.6 }}>{entry}</p>
                 </div>
               </div>
             )
           })}
           {logs.length === 0 && (
-            <p style={{ fontSize: '13px', color: '#aaa' }}>No log entries yet.</p>
+            <p style={{ fontSize: '13px', color: 'var(--fg-faint)' }}>No log entries yet.</p>
           )}
         </div>
       </main>
