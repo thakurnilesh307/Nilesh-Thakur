@@ -7,9 +7,11 @@ export default function Nav() {
       padding: '1rem 2rem',
       borderBottom: '0.5px solid #e5e5e5',
     }}>
-      <span style={{ fontSize: '15px', fontWeight: 500 }}>Your Name</span>
+      <a href="/" style={{ fontSize: '15px', fontWeight: 500, textDecoration: 'none', color: 'inherit' }}>
+        nilesh thakur
+      </a>
       <div style={{ display: 'flex', gap: '1.5rem' }}>
-        {['work', 'now', 'photos', 'life', 'contact'].map(link => (
+        {['work', 'now', 'contact'].map(link => (
           <a key={link} href={`#${link}`} style={{
             fontSize: '13px',
             color: '#666',
