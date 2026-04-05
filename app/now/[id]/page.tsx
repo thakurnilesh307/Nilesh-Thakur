@@ -2,8 +2,6 @@ import Nav from '../../../app/components/Nav'
 import Footer from '../../../app/components/Footer'
 import { getNowItems, getLogEntries } from '../../../lib/notion'
 
-export const dynamic = 'force-dynamic'
-
 export async function generateStaticParams() {
   // @ts-ignore
   const items = await getNowItems()
