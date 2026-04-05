@@ -94,16 +94,6 @@ h1, h2, h3 {
   opacity: 1;
 }
 
-/* Nav */
-.nav-desktop     { display: flex; }
-.nav-hamburger   { display: none; }
-.nav-mobile-menu { display: none; }
-
-@media (max-width: 520px) {
-  .nav-desktop     { display: none; }
-  .nav-hamburger   { display: flex; }
-  .nav-mobile-menu { display: block; }
-}
 
 /* Chip / tag pills */
 .chip {
