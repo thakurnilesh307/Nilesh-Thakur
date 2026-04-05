@@ -147,7 +147,11 @@ export default function Hero() {
         if (dist < CAR_SPEED) {
           carX = tx; carY = ty; pathIdx++
         } else {
-          carAngle = Math.atan2(dy, dx)
+          const targetAngle = Math.atan2(dy, dx)
+          let diff = targetAngle - carAngle
+          if (diff > Math.PI)  diff -= Math.PI * 2
+          if (diff < -Math.PI) diff += Math.PI * 2
+          carAngle += diff * 0.12
           carX += (dx / dist) * CAR_SPEED
           carY += (dy / dist) * CAR_SPEED
         }
@@ -202,18 +206,6 @@ export default function Hero() {
       }
       ctx.stroke()
 
-      // planned path (dashed)
-      ctx.beginPath()
-      ctx.setLineDash([3, 9])
-      ctx.strokeStyle = 'rgba(29,158,117,0.12)'
-      ctx.lineWidth = 1
-      for (let i = pathIdx; i < fullPath.length; i++) {
-        const px = (fullPath[i] % COLS + 0.5) * cW
-        const py = (Math.floor(fullPath[i] / COLS) + 0.5) * cH
-        i === pathIdx ? ctx.moveTo(px, py) : ctx.lineTo(px, py)
-      }
-      ctx.stroke()
-      ctx.setLineDash([])
 
       const oldest2 = (ptHead - ptCount + MAX_PTS) % MAX_PTS
 

@@ -35,7 +35,7 @@ export default function Nav() {
             color: 'var(--fg)',
             flexShrink: 0,
           }}>
-            nilesh thakur
+            home
           </a>
 
           {/* desktop links */}
