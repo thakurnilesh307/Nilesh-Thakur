@@ -39,7 +39,7 @@ export default function Nav() {
           </a>
 
           {/* desktop links */}
-          <div className="nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+          <div className="nav-desktop" style={{ alignItems: 'center', gap: '2rem' }}>
             {links.map(({ label, href, accent }) => (
               <a key={label} href={href} style={{
                 fontSize: '13px',
@@ -56,7 +56,6 @@ export default function Nav() {
             onClick={() => setOpen(o => !o)}
             aria-label={open ? 'Close menu' : 'Open menu'}
             style={{
-              display: 'none',
               background: 'none',
               border: 'none',
               cursor: 'pointer',
@@ -113,7 +112,6 @@ export default function Nav() {
           overflow: 'hidden',
           maxHeight: open ? '200px' : '0px',
           transition: 'max-height 0.3s cubic-bezier(0.4,0,0.2,1), border-color 0.3s ease',
-          display: 'none',
         }}
       >
         <div style={{ padding: '0.5rem 0 1.25rem' }}>

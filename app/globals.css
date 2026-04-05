@@ -95,10 +95,14 @@ h1, h2, h3 {
 }
 
 /* Nav */
+.nav-desktop     { display: flex; }
+.nav-hamburger   { display: none; }
+.nav-mobile-menu { display: none; }
+
 @media (max-width: 520px) {
-  .nav-desktop      { display: none !important; }
-  .nav-hamburger    { display: flex !important; }
-  .nav-mobile-menu  { display: block !important; }
+  .nav-desktop     { display: none; }
+  .nav-hamburger   { display: flex; }
+  .nav-mobile-menu { display: block; }
 }
 
 /* Chip / tag pills */
