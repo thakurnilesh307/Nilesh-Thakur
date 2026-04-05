@@ -1,19 +1,21 @@
 import Nav from './components/Nav'
 import Hero from './components/Hero'
-import Projects from './components/Projects'
 import Now from './components/Now'
-import { getProjects, getNowItems } from '../lib/notion'
+import Footer from './components/Footer'
+import { getNowItems } from '../lib/notion'
 
 export default async function Home() {
-  const projects = await getProjects()
+  // @ts-ignore
   const nowItems = await getNowItems()
 
   return (
     <main>
       <Nav />
       <Hero />
-      <Projects projects={projects} />
-      <Now items={nowItems} />
+      <div className="container">
+        <Now items={nowItems} />
+        <Footer />
+      </div>
     </main>
   )
 }

@@ -1,48 +1,65 @@
 export default function Projects({ projects }: { projects: any[] }) {
   return (
-    <section id="work" style={{ padding: '2rem', borderTop: '0.5px solid var(--border)' }}>
-      <p style={{ fontSize: '11px', letterSpacing: '0.06em', color: 'var(--fg-faint)', textTransform: 'uppercase', marginBottom: '1rem' }}>
-        Selected work
-      </p>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px' }}>
-        {projects.map(project => {
+    <section id="work" style={{ padding: '6rem 0' }}>
+      <div style={{ marginBottom: '3rem' }}>
+        <p className="section-label">Selected work</p>
+        <h2 style={{ fontSize: '32px', fontWeight: 500, color: 'var(--fg)', letterSpacing: '-0.02em' }}>
+          Things I've built
+        </h2>
+        <p style={{ fontSize: '15px', color: 'var(--fg-muted)', marginTop: '0.5rem', lineHeight: 1.6 }}>
+          A mix of side projects, research tools, and things that got out of hand.
+        </p>
+      </div>
+
+      <div style={{ borderTop: '1px solid var(--border)' }}>
+        {projects.map((project, i) => {
           const props = project.properties
           const name = props.Name?.title?.[0]?.plain_text ?? 'Untitled'
           const tagline = props.Tagline?.rich_text?.[0]?.plain_text ?? ''
           const tags = props.Tags?.multi_select?.map((t: any) => t.name) ?? []
           const category = props.Category?.select?.name ?? ''
+          const link = props.Link?.url ?? ''
+          const year = props.Date?.date?.start
+            ? new Date(props.Date.date.start).getFullYear()
+            : null
 
           return (
-            <div key={project.id} style={{
-              background: 'var(--bg)',
-              border: '0.5px solid var(--border)',
-              borderRadius: '12px',
-              padding: '1rem 1.25rem',
-            }}>
-              <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '6px' }}>
-                <span style={{
-                  fontSize: '11px',
-                  padding: '3px 8px',
-                  borderRadius: '100px',
-                  background: '#E1F5EE',
-                  color: '#0F6E56',
-                  fontWeight: 500,
-                }}>{category}</span>
+            <a
+              key={project.id}
+              href={link || undefined}
+              target={link ? '_blank' : undefined}
+              rel={link ? 'noopener noreferrer' : undefined}
+              className="project-row"
+              style={{ cursor: link ? 'pointer' : 'default' }}
+            >
+              {/* row number */}
+              <span style={{ fontSize: '12px', color: 'var(--fg-faint)', fontVariantNumeric: 'tabular-nums' }}>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+
+              {/* main content */}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '5px' }}>
+                  <span className="chip">{category}</span>
+                </div>
+                <p style={{ fontSize: '16px', fontWeight: 500, marginBottom: '4px', color: 'var(--fg)' }}>{name}</p>
+                <p style={{ fontSize: '13px', color: 'var(--fg-muted)', lineHeight: 1.6 }}>{tagline}</p>
               </div>
-              <p style={{ fontSize: '14px', fontWeight: 500, marginBottom: '4px' }}>{name}</p>
-              <p style={{ fontSize: '12px', color: 'var(--fg-muted)', lineHeight: 1.5, marginBottom: '10px' }}>{tagline}</p>
-              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                {tags.map((tag: string) => (
-                  <span key={tag} style={{
-                    fontSize: '11px',
-                    padding: '3px 8px',
-                    borderRadius: '6px',
-                    background: 'var(--border)',
-                    color: 'var(--fg-muted)',
-                  }}>{tag}</span>
-                ))}
+
+              {/* right side: tags + year */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '10px' }}>
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                  {tags.map((tag: string) => (
+                    <span key={tag} className="chip">{tag}</span>
+                  ))}
+                </div>
+                {year && (
+                  <span style={{ fontSize: '12px', color: 'var(--fg-faint)', fontVariantNumeric: 'tabular-nums' }}>
+                    {year}
+                  </span>
+                )}
               </div>
-            </div>
+            </a>
           )
         })}
       </div>

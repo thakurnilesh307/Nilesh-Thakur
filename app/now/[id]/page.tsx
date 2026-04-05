@@ -1,4 +1,5 @@
 import Nav from '../../../app/components/Nav'
+import Footer from '../../../app/components/Footer'
 import { getNowItems, getLogEntries } from '../../../lib/notion'
 
 export default async function NowDetail({ params }: { params: any }) {
@@ -121,6 +122,7 @@ export default async function NowDetail({ params }: { params: any }) {
             <p style={{ fontSize: '13px', color: 'var(--fg-faint)' }}>No log entries yet.</p>
           )}
         </div>
+        <Footer />
       </main>
     </>
   )

@@ -1,8 +1,12 @@
-import { Client } from '@notionhq/client'
+import { cacheLife, cacheTag } from 'next/cache'
+const { Client } = require('@notionhq/client')
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN })
 
 export async function getProjects() {
+  'use cache'
+  cacheLife('minutes')
+  cacheTag('projects')
   const res = await notion.databases.query({
     database_id: process.env.NOTION_PROJECTS_DB,
     filter: { property: 'Featured', checkbox: { equals: true } },
@@ -12,6 +16,9 @@ export async function getProjects() {
 }
 
 export async function getNowItems() {
+  'use cache'
+  cacheLife('minutes')
+  cacheTag('now')
   const res = await notion.databases.query({
     database_id: process.env.NOTION_NOW_DB,
     filter: { property: 'Status', select: { equals: 'active' } },
@@ -19,7 +26,10 @@ export async function getNowItems() {
   return res.results
 }
 
-export async function getLogEntries(nowItemId) {
+export async function getLogEntries(nowItemId: string) {
+  'use cache'
+  cacheLife('minutes')
+  cacheTag('logs', nowItemId)
   const res = await notion.databases.query({
     database_id: process.env.NOTION_LOG_DB,
     filter: { property: 'Now Item', relation: { contains: nowItemId } },
@@ -29,6 +39,9 @@ export async function getLogEntries(nowItemId) {
 }
 
 export async function getPhotos() {
+  'use cache'
+  cacheLife('hours')
+  cacheTag('photos')
   const res = await notion.databases.query({
     database_id: process.env.NOTION_PHOTOS_DB,
     sorts: [{ property: 'Date', direction: 'descending' }],

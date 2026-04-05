@@ -1,22 +1,49 @@
 export default function Nav() {
   return (
     <nav style={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: '1rem 2rem',
-      borderBottom: '0.5px solid var(--border)',
+      position: 'sticky',
+      top: 0,
+      zIndex: 100,
+      background: 'rgba(12,12,12,0.85)',
+      backdropFilter: 'blur(16px)',
+      WebkitBackdropFilter: 'blur(16px)',
+      borderBottom: '1px solid var(--border)',
     }}>
-      <a href="/" style={{ fontSize: '15px', fontWeight: 500 }}>
-        nilesh thakur
-      </a>
-      <div style={{ display: 'flex', gap: '1.5rem' }}>
-        {['work', 'now', 'contact'].map(link => (
-          <a key={link} href={`#${link}`} style={{
+      <div className="container" style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: '56px',
+      }}>
+        <a href="/" style={{
+          fontSize: '14px',
+          fontWeight: 500,
+          letterSpacing: '-0.01em',
+          color: 'var(--fg)',
+        }}>
+          nilesh thakur
+        </a>
+        <div style={{ display: 'flex', gap: '1.75rem', alignItems: 'center' }}>
+          {[
+            { label: 'projects', href: '/projects' },
+            { label: 'photos',   href: '/photos' },
+          ].map(({ label, href }) => (
+            <a key={label} href={href} style={{
+              fontSize: '13px',
+              color: 'var(--fg-muted)',
+              letterSpacing: '0.01em',
+            }}>
+              {label}
+            </a>
+          ))}
+          <a href="mailto:thakur.nilesh307@gmail.com" style={{
             fontSize: '13px',
-            color: 'var(--fg-muted)',
-          }}>{link}</a>
-        ))}
+            color: 'var(--accent)',
+            letterSpacing: '0.01em',
+          }}>
+            say hi
+          </a>
+        </div>
       </div>
     </nav>
   )
