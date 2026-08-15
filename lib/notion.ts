@@ -63,7 +63,10 @@ export async function getRecentActivity(limit = 8) {
 
 export async function getPhotos() {
   'use cache'
-  cacheLife('hours')
+  // Notion-hosted files are S3 URLs signed with X-Amz-Expires=3600. A cache entry
+  // that outlives that hour hands the browser dead links, so keep the whole
+  // window (including the stale-while-revalidate tail) under 60 minutes.
+  cacheLife({ stale: 300, revalidate: 1800, expire: 3000 })
   cacheTag('photos')
   const res = await notion.databases.query({
     database_id: process.env.NOTION_PHOTOS_DB,

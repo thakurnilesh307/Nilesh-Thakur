@@ -16,7 +16,7 @@ export default function Nav() {
 
   const links = [
     { label: 'projects', href: '/projects' },
-    { label: 'photos',   href: '/photos'   },
+    { label: 'photography', href: '/photos' },
     { label: 'say hi',   href: 'mailto:thakur.nilesh307@gmail.com', accent: true },
   ]
 

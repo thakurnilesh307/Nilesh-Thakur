@@ -2,7 +2,7 @@
 
 My personal site, live at **https://nilesh-thakur.vercel.app/**
 
-It's a Next.js app with Notion as the CMS — projects, "now" items, log entries, and photos all live in Notion databases and get pulled in at build/request time. THis means site is updated via Notion.
+It's a Next.js app with Notion as the CMS. Projects, "now" items, log entries, and photos all live in Notion databases and get pulled in at build/request time. This means the site is updated via Notion.
 
 ## Stack
 
@@ -52,26 +52,28 @@ Other scripts: `npm run build`, `npm run start`, `npm run lint`.
 
 The property names below are what `lib/notion.ts` and the page components read. Renaming a property in Notion silently drops the field (everything falls back to empty), so keep these in sync.
 
-**Projects** (`NOTION_PROJECTS_DB`) — `Name` (title), `Tagline`, `Description`, `Tags` (multi-select), `Category` (select), `Status` (select), `Link` (url), `GitHub` (url), `Featured` (checkbox), `Date`
+**Projects** (`NOTION_PROJECTS_DB`): `Name` (title), `Tagline`, `Description`, `Tags` (multi-select), `Category` (select), `Status` (select), `Link` (url), `GitHub` (url), `Featured` (checkbox), `Date`
 
-**Now** (`NOTION_NOW_DB`) — `Name` (title), `Tagline`, `Description`, `Category` (select: `engineering` / `cooking` / `personal`), `Progress` (number), `Status` (select — only `active` items are shown), `Started` (date)
+**Now** (`NOTION_NOW_DB`): `Name` (title), `Tagline`, `Description`, `Category` (select: `engineering` / `cooking` / `personal`), `Progress` (number), `Status` (select, only `active` items are shown), `Started` (date)
 
-**Log** (`NOTION_LOG_DB`) — `Entry` (rich text), `Type` (select: `win` / `struggle` / `note`), `Date`, `Now Item` (relation → Now)
+**Log** (`NOTION_LOG_DB`): `Entry` (rich text), `Type` (select: `win` / `struggle` / `note`), `Date`, `Now Item` (relation → Now)
 
-**Photos** (`NOTION_PHOTOS_DB`) — `Name` (title), `Caption`, `Location` (rich text or select), `Date`, `Featured` (checkbox), `Photo` (files — `Image` or `File` also work)
+**Photos** (`NOTION_PHOTOS_DB`): `Name` (title), `Caption`, `Location` (rich text or select), `Date`, `Featured` (checkbox), `Photo` (files, though `Image` or `File` also work)
 
 ## Data fetching
 
 All Notion queries live in `lib/notion.ts` and use Next's `'use cache'` directive with cache tags, so pages don't hammer the Notion API:
 
-- `projects`, `now`, `logs` — `cacheLife('minutes')`
-- `photos` — `cacheLife('hours')`
+- `projects`, `now`, `logs`: `cacheLife('minutes')`
+- `photos`: 30 min revalidate, 50 min expire
+
+The photos window is deliberately short. Notion serves uploaded files as S3 URLs signed with `X-Amz-Expires=3600`, so any cache entry older than an hour hands the browser links that 403, and the grid renders blank tiles. Keeping `expire` under 60 minutes guarantees the URLs are still live when they reach a visitor. If you ever want longer caching here, switch the Notion property to external image links (those don't expire) or proxy the images through a route handler that resolves a fresh URL per request.
 
 ## Structure
 
 ```
 app/
-  page.tsx            home — now items + activity timeline
+  page.tsx            home: now items + activity timeline
   layout.tsx          root layout, metadata, Inter font
   globals.css         CSS variables + base styles (dark theme)
   now/[id]/page.tsx   now item detail
@@ -84,4 +86,4 @@ lib/
 
 ## Deployment
 
-Pushes to `main` deploy automatically on Vercel. The five `NOTION_*` variables need to be set in the Vercel project settings too — they aren't read from `.env.local` in production.
+Pushes to `main` deploy automatically on Vercel. The five `NOTION_*` variables need to be set in the Vercel project settings too, since they aren't read from `.env.local` in production.
